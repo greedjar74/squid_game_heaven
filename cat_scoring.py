@@ -20,7 +20,7 @@ def get_score(model, image):
 
 def cat_scoring():
     # 저장된 모델 로드
-    model = torch.load("best_model.pth", weights_only=False)
+    model = torch.load("best_model.pth", weights_only=False, map_location='cpu')
     model.to('cpu')
 
     st.title("🐱 고양이를 그려라!")
