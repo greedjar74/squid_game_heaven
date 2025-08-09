@@ -4,6 +4,12 @@ import torch
 import torchvision.transforms as T
 import timm
 
+@st.cache_resource
+def load_model():
+    model = timm.create_model("resnet34", pretrained=True)
+    model.eval()
+    return model
+
 def get_score(model, image):
     transforms = T.Compose([
         T.Resize((224, 224)),
@@ -38,7 +44,7 @@ def get_score(model, image):
 
 def cat_scoring():
     st.sidebar.image("cat_scoring_example.png")
-    model = timm.create_model("resnet50", pretrained=True)
+    model = load_model()
     model.to('cpu')
 
     st.title("🐱 고양이를 그려라!")
